@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mermaid Diagram</title>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <p style="text-align: center;">new_notes Diagram</p>
+    <div class="mermaid">
+        sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_notes
+    activate server
+    server-->>browser: 201 Created (new note saved)
+    deactivate server
+
+    Note right of browser:User sends new note to the server 
+    
+    browser->>server:GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    Note right of browser:after the response to redirection the browser send another request to get the notes page
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [...,{ "content": "hacuna matata", "date": "2024-07-22T12:52:00.373Z" }, ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+    </div>
+
+    <p style="text-align: center;">SPA diagram</p>
+
+    <div class="mermaid">
+    sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [content: "hacuna matata2", date: "2024-07-22T12:52:00.373Z", ... ]
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+    </div>
+    <p style="text-align: center;">SPA New_Note diagram</p>
+    <div class="mermaid">
+    sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_notes_spa
+    activate server
+    server-->>browser: 201 Created (new note saved)
+    deactivate server
+
+    Note right of browser:User sends new note to the server as a json file and the ui is updated throught js code
+
+    </div>
+</body>
+</html>
